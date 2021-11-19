@@ -1,0 +1,76 @@
+.payment-table {
+  width: 100%;
+  margin-top: 25px;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+  border-spacing: 0;
+  text-align: left;
+}
+
+.sub-table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.primary-header {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  background: #f8f8f8;
+  text-transform: uppercase;
+  height: 40px;
+}
+
+.primary-records {
+  height: 60px;
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.primary-records.showSub {
+  background: #f4f2ff;
+}
+
+.primary-records:hover {
+  background: #f4f2ff;
+}
+
+.expanded-row td div {
+  height: 0px;
+  overflow: hidden;
+  transition: 500ms;
+}
+
+.sub-header {
+  text-transform: uppercase;
+  font-size: 14px;
+  background: #eae7f9;
+  height: 40px;
+}
+
+.activity {
+  font-size: 14px;
+  background: #fcfcfc;
+}
+
+.empty {
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: center;
+  height: 100px;
+}
+
+td {
+  border-top: 1px solid var(--grey);
+}
+
+.expanded-row td {
+  border: none;
+}
+
+.sub-table td,
+.sub-table th {
+  border-top: 1px solid var(--grey);
+}

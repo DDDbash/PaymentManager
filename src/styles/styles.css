@@ -1,0 +1,7 @@
+@import "./base/base.css";
+@import "./components/navbar.css";
+@import "./components/filters.css";
+@import "./components/filter-modal.css";
+@import "./components/table.css";
+@import "./components//table-attributes.css";
+@import "./components/modal.css";

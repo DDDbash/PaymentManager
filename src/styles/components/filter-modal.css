@@ -1,0 +1,78 @@
+.filter-modal {
+  width: 225px;
+  margin-top: 5px;
+  position: absolute;
+  background: white;
+  display: none;
+  border: 1px solid var(--grey);
+  box-sizing: border-box;
+  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  text-transform: capitalize;
+  padding-top: 0px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 5px;
+  font-size: 14px;
+  color: var(--black);
+  z-index: 5;
+}
+
+.filter-modal.show {
+  display: block;
+}
+
+.filter-modal p {
+  padding-top: 20px;
+  padding-bottom: 5px;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--violet);
+}
+
+.filter-modal p:last-of-type {
+  padding-top: 10px;
+  border-top: 1px solid var(--white-1);
+}
+
+.filter-modal li {
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.filter-modal li:last-child {
+  margin-bottom: 5px;
+}
+
+.filter-modal li:hover,
+.filter-modal li:focus {
+  background: var(--white-1);
+  border-radius: 6px;
+}
+
+input[type="radio" i] {
+  background: white;
+}
+
+input[type="radio"]:after {
+  width: 13px;
+  height: 13px;
+  border-radius: 15px;
+  top: 0px;
+  left: -1px;
+  position: relative;
+  background-color: white;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid var(--primary-color);
+}
+
+input[type="radio"]:checked:after {
+  background-color: var(--primary-color);
+  content: "";
+  border: 1px solid var(--primary-color);
+}

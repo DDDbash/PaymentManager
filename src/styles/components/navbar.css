@@ -1,0 +1,75 @@
+.navbar {
+  display: flex;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  height: 75px;
+  justify-content: space-between;
+  color: black;
+  box-shadow: 0px 2px 5px 0px #0000001f;
+}
+
+.logo {
+  margin-top: 17px;
+}
+
+.nav-list {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 27px;
+}
+
+.nav-item {
+  font-weight: 400;
+  min-width: 60px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.sub-nav {
+  height: 45px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 44px;
+  border-bottom: 1px solid var(--grey);
+}
+
+.payment-status-list {
+  font-size: 14px;
+  font-weight: 500;
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.payment-status {
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.payment-status:hover,
+.active {
+  border-bottom: 2px solid var(--black);
+  color: var(--black);
+}
+
+.total {
+  font-size: 14px;
+}
+
+.total-amount {
+  font-size: 18px;
+}

@@ -1,0 +1,47 @@
+Day 1:
+Created static navbar, static payment status subnav, static searchbar section
+
+Day 2:
+Created accounts reducer and a paginated table and imported the JSON data to reducer
+Used react-table for creating the table
+
+Day 3:
+Create filters reducer
+Removed react-table and created own table
+Paginated table
+Made sure that the searchbar worked for name and email (this was difficult due to having to render back to page 1
+    when searching and useState was re-rendering the useEffect, so had to think a logic and dependency where the
+    useEffect re-render worked with the useState re-render )
+the payment status navbar works properly with proper css active classes
+
+Day 4:
+dynamic amount value based on unpaid and overdue payment status
+Added sort attribute property to the data table
+css for the data table (still left to define some spacings and width)
+active row when expanding the data table
+dynamic height for the sub table when expanded upon
+
+Day 5:
+Was mostly css
+Created the modal for more options with CSS (JS logic still left)
+Created the filter by user status
+Created the CSS for filters modal
+Created an active state for filters button
+Changed email text transform to normal as opposed to capitalize
+
+Day 6:
+Checkbox implementation for the tables
+Developing the logic so that when checkbox is clicked and form is submitted then the data gets 
+    passed to the modal took time.
+Popup modal
+
+Day 7:
+The functionality of PAY DUES button was created (CSS still left)
+When dues are paid, the amount decreases
+when full dues is paid, the payment status changes to paid and paid date changes to current date
+When the current date passes the due date, the payment status changes to overdued from unpaid
+
+Day 8:
+Functionality of change amount, activate, inactivate button was created
+reconfigured the reducers 
+Implemented single account delete functionality
