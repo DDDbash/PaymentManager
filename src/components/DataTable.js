@@ -12,7 +12,6 @@ const DataTable = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [dataPerPage, setDataPerPage] = useState(10);
     const [modalType, setModalType] = useState('pay');
-    const [changeUserStatus, setChangeUserStatus] = useState('activate');
 
     //index of first and last data in the table
     const indexOfLastData = currentPage * dataPerPage;
@@ -200,9 +199,9 @@ const DataTable = (props) => {
                                         currentPage={currentPage}
                                         setShowModal={setShowModal}
                                         setModalType={setModalType}
-                                        changeUserStatus={setChangeUserStatus}
                                         checkedState={checkedState}
                                         setCheckedState={setCheckedState}
+                                        setAllChecked={setAllChecked}
                                         handleOnChange={handleOnChange}
                                         expandIcon={expandIcon}
                                         kebabIcon={kebabIcon}
@@ -220,6 +219,8 @@ const DataTable = (props) => {
                 paginate={paginate}
                 currentPage={currentPage}
                 setDataPerPage={setDataPerPage}
+                indexOfFirstData={indexOfFirstData}
+                currentDataSetLength={currentDataSet.length}
             />
             <DataModal
                 setModalData={setModalData}

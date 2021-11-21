@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { connect } from 'react-redux';
 import { updatePaymentStatusDynamically } from '../actions/accounts';
 import { DataTableExpandItems } from './DataTableExpandItems';
@@ -21,6 +21,19 @@ function useOutsideAlerter(ref, setShowOptions) {
     }, [ref]);
 }
 
+const useWindowSize = () => {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+        const updateSize = () => {
+            setSize([window.innerWidth, window.innerHeight]);
+        };
+        window.addEventListener("resize", updateSize);
+        updateSize();
+        return () => window.removeEventListener("resize", updateSize);
+    }, []);
+    return size;
+};
+
 const DataTableItems = (
     {
         id,
@@ -39,11 +52,11 @@ const DataTableItems = (
         indexOfFirstData,
         currentPage,
         checkedState,
+        setAllChecked,
         setCheckedState,
         handleOnChange,
         setShowModal,
         setModalType,
-        changeUserStatus,
         dispatch
     }) => {
 
@@ -53,6 +66,7 @@ const DataTableItems = (
     const tableRef = useRef(null)
     const divRef = useRef(null)
     useOutsideAlerter(wrapperRef, setShowOptions)
+    const [width, height] = useWindowSize();
 
     const label = [id, amount]
 
@@ -63,7 +77,7 @@ const DataTableItems = (
         } else {
             divRef.current.style.height = "0px";
         }
-    }, [showSub])
+    }, [showSub, width])
 
     let lastLoginDate = new Date(last_login_date)
     const month = lastLoginDate.toLocaleString('default', { month: 'long' }).slice(0, 3).toUpperCase()
@@ -79,8 +93,8 @@ const DataTableItems = (
 
     useEffect(() => {
         if (payment_status !== 'paid') {
-            payment_status = new Date() > paidDate ? "overdue" : 'unpaid'
-            dispatch(updatePaymentStatusDynamically(id, payment_status))
+            const pstatus = new Date() > paidDate ? "overdue" : 'unpaid'
+            dispatch(updatePaymentStatusDynamically(id, pstatus))
         }
     }, []);
 
@@ -95,11 +109,12 @@ const DataTableItems = (
                 : false
         )
         setCheckedState(updatedCheckedState)
+        setAllChecked(false)
     }
 
     return (
         <>
-            <tr key={id} className={`primary-records${showSub || showOptions ? ' showSub' : ''}`} >
+            <tr key={id} className={`primary-records${showSub || showOptions || checkedState[index] ? ' showSub' : ''}`} >
                 <td>
                     <input
                         type="checkbox"
@@ -174,7 +189,7 @@ const DataTableItems = (
                 <td className="align-right">
                     <label htmlFor={id}>
                         <div style={{ width: '100%', height: '46px', paddingTop: '14px' }}>
-                            {amount}
+                            ${amount}
                             <br />
                             <span className="support-data">
                                 USD
@@ -203,7 +218,6 @@ const DataTableItems = (
                         setShowOptions={setShowOptions}
                         wrapperRef={wrapperRef}
                         showOptions={showOptions}
-                        changeUserStatus={changeUserStatus}
                     />
                 </td>
             </tr>
@@ -215,7 +229,7 @@ const DataTableItems = (
                             <thead>
                                 <tr className="sub-header">
                                     <th>Date</th>
-                                    <th>User Activity</th>
+                                    <th colSpan="2">User Activity</th>
                                     <th colSpan="3">Detail</th>
                                 </tr>
                             </thead>
@@ -231,7 +245,7 @@ const DataTableItems = (
                                             )
                                         }) :
                                         <tr className="activity empty">
-                                            <td colSpan="5">No Records Found</td>
+                                            <td colSpan="6">No Records Found</td>
                                         </tr>
                                 }
                             </tbody>

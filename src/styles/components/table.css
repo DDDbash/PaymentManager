@@ -28,10 +28,7 @@
   font-weight: 500;
 }
 
-.primary-records.showSub {
-  background: #f4f2ff;
-}
-
+.primary-records.showSub,
 .primary-records:hover {
   background: #f4f2ff;
 }
@@ -52,6 +49,7 @@
 .activity {
   font-size: 14px;
   background: #fcfcfc;
+  height: 60px;
 }
 
 .empty {
@@ -72,5 +70,48 @@ td {
 
 .sub-table td,
 .sub-table th {
+  width: 100px;
+  padding-left: 40px;
   border-top: 1px solid var(--grey);
+}
+
+.pagination {
+  display: flex;
+  height: 40px;
+  background: #f8f8f8;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+  font-weight: 600;
+  font-size: 12px;
+  align-items: center;
+}
+
+.page-size-btn {
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--violet);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-right: 50px;
+  margin-top: 3px;
+}
+
+option {
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--violet);
+}
+
+.paginate-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+.paginate-btn:disabled {
+  cursor: not-allowed;
 }

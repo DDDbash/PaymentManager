@@ -45,3 +45,11 @@ Day 8:
 Functionality of change amount, activate, inactivate button was created
 reconfigured the reducers 
 Implemented single account delete functionality
+
+Day 9:
+Break
+
+Day 10:
+CSS for sub table, pagination
+Added pagination index and prev, next icons
+Window resize event listener for sub table

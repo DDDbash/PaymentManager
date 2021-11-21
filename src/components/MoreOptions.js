@@ -1,7 +1,7 @@
 import React from 'react'
 import closeIcon from '../icons/close.svg'
 
-export const MoreOptions = ({ showOptions, userStatus, setShowOptions, wrapperRef, setShowModal, setModalType, changeUserStatus }) => {
+export const MoreOptions = ({ showOptions, userStatus, setShowOptions, wrapperRef, setShowModal, setModalType }) => {
 
     const openModal = (type) => {
         setModalType(type)
