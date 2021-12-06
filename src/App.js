@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import './styles/styles.css';
+import Dashboard from './components/Dashboard';
+import Logs from './components/Logs';
 import Navbar from './components/Navbar';
-import SubNav from './components/SubNav';
-import Filters from './components/Filters';
-import DataTable from './components/DataTable';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const store = configureStore();
 
 function App() {
-  const [refresh, setRefresh] = useState(false)
+  const [logs, setLogs] = useState([]);
   return (
     <Provider store={store}>
-      <Navbar />
-      <main>
-        <SubNav refresh={refresh} />
-        <Filters />
-        <DataTable refresh={refresh} setRefresh={setRefresh} />
-      </main>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Dashboard logs={logs} setLogs={setLogs} />} />
+          <Route path="/logs" element={<Logs logs={logs} />} />
+        </Routes>
+      </Router>
     </Provider>
   )
 }

@@ -38,9 +38,11 @@ export const ChangeAmountModal = (props) => {
                     placeholder="Enter Amount"
                     value={amount}
                     onChange={amountChange}
+                    className="modal-input"
                 />
                 <input type="submit"
                     value="Change"
+                    className="modal-submit"
                 />
             </form>
         </Modal>

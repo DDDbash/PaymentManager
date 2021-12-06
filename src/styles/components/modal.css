@@ -27,3 +27,68 @@
   padding: 30px;
   text-align: center;
 }
+
+.modal-input {
+  padding: 10px;
+  border: 1px solid var(--grey);
+  border-radius: 6px;
+  height: 25x;
+  width: 150px;
+}
+
+.modal-submit {
+  margin-top: 10px;
+  font-family: inherit;
+  height: 35px;
+  min-width: 40px;
+  color: var(--white);
+  background: var(--primary-color);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 6px;
+  display: block;
+}
+
+.success {
+  background: var(--green);
+}
+
+.success:hover {
+  opacity: 0.8;
+}
+
+.fail {
+  background: var(--red);
+}
+
+.fail:hover {
+  opacity: 0.8;
+}
+
+.modal-input:hover,
+.modal-input:focus-visible {
+  outline: var(--primary-color) auto 1px;
+}
+
+.profile-table {
+  text-align: left;
+  border-spacing: 0px;
+}
+
+.profile-table thead {
+  font-size: 20px;
+}
+
+.profile-table tbody tr:hover {
+  background: #f4f2ff;
+}
+
+.profile-table th,
+.profile-table td {
+  border-radius: 6px;
+  text-transform: capitalize;
+  border: none;
+  width: 200px;
+  height: 40px;
+}

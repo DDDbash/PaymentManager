@@ -53,3 +53,19 @@ Day 10:
 CSS for sub table, pagination
 Added pagination index and prev, next icons
 Window resize event listener for sub table
+
+Day 11:
+Nothing
+
+Day 12: 
+Nothing (Exams study)
+
+Day 13:
+CSS for modals
+
+Day 14:
+Nothing (Exams study)
+
+Day 15:
+React Router setup
+Basic Logs set up (When multiple state changes, log only displays the last array change)

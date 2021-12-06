@@ -33,7 +33,7 @@ export const MoreOptions = ({ showOptions, userStatus, setShowOptions, wrapperRe
                 <li className="option" onClick={() => openModal('change_amount')}>
                     Change Amount
                 </li>
-                <li className="option" >
+                <li className="option" onClick={() => openModal('view_profile')}>
                     View Profile
                 </li>
                 {

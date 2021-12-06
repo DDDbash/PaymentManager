@@ -96,6 +96,10 @@ const DataTable = (props) => {
 
     //submits data to the reducer
     const onModalSubmit = (amount) => {
+        let logsArray = [];
+        let currentMonth = new Date().toLocaleString('default', { month: 'long' }).slice(0, 3).toUpperCase();
+        let currentDate = new Date().getDate();
+        let currentYear = new Date().getFullYear()
         if (modalType === 'pay') {
             modalData.map((data) => {
                 if ((parseFloat(data.amount) - parseFloat(amount.amount)).toFixed(2) < 0)
@@ -107,7 +111,9 @@ const DataTable = (props) => {
                         data.payment_status = "paid";
                         data.paid_date = new Date();
                     }
+                    logsArray.push(`Admin paid the dues of ${data.first_name} by $${amount.amount} on ${currentDate}/${currentMonth}/${currentYear}`)
                 }
+                props.setLogs([...props.logs, logsArray].flat(Infinity))
             })
             // console.log(modalData);
             // let newReducerData = reducerData.map(data => { return { ...data } })
@@ -123,12 +129,18 @@ const DataTable = (props) => {
         //amount change is dont without directly connecting to the user so that the total amount re render happens
         else if (modalType === 'change_amount') {
             modalData.map((data) => {
-                if (data.payment_status.toLowerCase() === 'paid') {
-                    data.payment_status = 'unpaid'
-                    data.paid_date = new Date().setDate(new Date().getDate() + 7)
+                if (Number(parseFloat(amount.amount)) <= data.amount && data.payment_status.toLowerCase() !== 'paid') {
+                    alert("Please reduce the dues by Paying the dues instead of Changing the amount")
+                } else {
+                    if (data.payment_status.toLowerCase() === 'paid') {
+                        data.payment_status = 'unpaid'
+                        data.paid_date = new Date().setDate(new Date().getDate() + 7)
+                    }
+                    data.amount = Number(parseFloat(amount.amount))
+                    logsArray.push(`Admin changed the amount of ${data.first_name} to $${amount.amount} on ${currentDate}/${currentMonth}/${currentYear}`)
                 }
-                data.amount = Number(parseFloat(amount.amount))
             })
+            props.setLogs([...props.logs, logsArray].flat(Infinity))
         }
 
         props.setRefresh(!props.refresh)
@@ -232,6 +244,8 @@ const DataTable = (props) => {
                 checkedState={checkedState}
                 setCheckedState={setCheckedState}
                 onSubmit={(amount) => onModalSubmit(amount)}
+                setLogs={props.setLogs}
+                logs={props.logs}
             />
         </>
     )
