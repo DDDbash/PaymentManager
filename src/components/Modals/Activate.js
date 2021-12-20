@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
-import { changeUserStatus } from '../actions/accounts'
+import { changeUserStatus } from '../../actions/accounts'
+import { AppContext } from '../../ProtectedRoutes';
 
 const Activate = (props) => {
     const submitData = props.reducerData.filter((data, index) => props.checkedState[index] ? data : '')
@@ -9,10 +10,13 @@ const Activate = (props) => {
     let currentMonth = new Date().toLocaleString('default', { month: 'long' }).slice(0, 3).toUpperCase()
     let currentDate = new Date().getDate()
     let currentYear = new Date().getFullYear()
+
+    const { isAuth } = useContext(AppContext);
+
     return (
         <Modal
             isOpen={props.showModal}
-            contentLabel="change_amount"
+            contentLabel="activate_account"
             onRequestClose={props.closeModal}
             className="modal"
         >
@@ -23,13 +27,16 @@ const Activate = (props) => {
                         value="Yes"
                         onClick={(e) => {
                             e.preventDefault();
+                            submitData.map((data) => {
+                                if (data.user_status.toLowerCase() !== 'active')
+                                    logsArray.push(`${isAuth.result?.name} activated the user ${data.first_name} ${data.last_name} on ${currentDate}/${currentMonth}/${currentYear} `)
+                            })
                             props.dispatch(changeUserStatus(submitData, props.type))
                             props.setCheckedState(props.checkedState.fill(false))
-                            submitData.map((data) => {
-                                logsArray.push(`Admin activated the user ${data.first_name} ${data.last_name} on ${currentDate}/${currentMonth}/${currentYear} `)
-                            })
+                            props.setAllChecked(false)
                             props.setLogs([...props.logs, logsArray].flat(Infinity))
                             props.setShowModal(false)
+                            alert("Changes were made")
                         }}
                         className="modal-submit success"
                     />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { paymentFilter } from '../actions/filters';
+import { paymentFilter } from '../../actions/filters';
 
 const SubNav = (props) => {
     const paymentStatusArray = ['all', 'paid', 'unpaid', 'overdue'];

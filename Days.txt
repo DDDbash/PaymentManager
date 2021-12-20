@@ -69,3 +69,15 @@ Nothing (Exams study)
 Day 15:
 React Router setup
 Basic Logs set up (When multiple state changes, log only displays the last array change)
+
+Day 16:
+Fixed Logs where every time a change takes place it gets recorded
+
+Day 17:
+Found a bug where when index n of td is active the same index in the different page is active as well
+Fixed it by adding indexOfFirstData to the index of total dataset
+Found another bug where clicking on all 'th' on the 2nd page doesnt select all
+Fiexd it
+Finished operations for all operationsused the userStatus variable's undefined value of what elements to display 
+    in the for all more options.
+Created a completely new actions generator for delete all action.

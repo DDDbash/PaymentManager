@@ -1,8 +1,17 @@
 import React from 'react';
-import logo from '../logo/logo.svg';
-import { NavLink } from 'react-router-dom';
+import logo from '../../logo/logo.svg';
+import { useDispatch } from 'react-redux';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/auth');
+    }
+
     return (
         <nav className="navbar">
             <div className="nav-items">
@@ -28,7 +37,16 @@ const Navbar = () => {
                             Logs
                         </li>
                     </NavLink>
-
+                    <NavLink
+                        className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+                        to="/profile">
+                        <li>
+                            Profile
+                        </li>
+                    </NavLink>
+                    <li className="nav-item" onClick={logout}>
+                        Logout
+                    </li>
                 </ul>
             </div>
         </nav>

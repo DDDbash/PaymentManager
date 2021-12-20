@@ -4,7 +4,9 @@ const accountsReducerDefaultState = data;
 export default (state = accountsReducerDefaultState, action) => {
     switch (action.type) {
         case 'DELETE_ACCOUNT':
-            return state.filter(account => account.id !== action.id)
+            return state.filter(account => account.id !== action.id);
+        case 'DELETE_ALL_ACCOUNT':
+            return state.filter(() => false);
         case 'UPDATE_PAYMENT_STATUS_DYNAMICALLY':
             return state.map((account) => {
                 if (account.id === action.id) {

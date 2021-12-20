@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
-import { deleteAccount } from '../actions/accounts'
+import { changeUserStatus } from '../../actions/accounts'
+import { AppContext } from '../../ProtectedRoutes';
 
-const DeleteModal = (props) => {
+const Activate = (props) => {
     const submitData = props.reducerData.filter((data, index) => props.checkedState[index] ? data : '')
     let logsArray = []
     let currentMonth = new Date().toLocaleString('default', { month: 'long' }).slice(0, 3).toUpperCase()
     let currentDate = new Date().getDate()
     let currentYear = new Date().getFullYear()
+
+    const { isAuth } = useContext(AppContext);
+
     return (
         <Modal
             isOpen={props.showModal}
-            contentLabel="change_amount"
+            contentLabel="inactivate_account"
             onRequestClose={props.closeModal}
             className="modal"
         >
@@ -23,11 +27,13 @@ const DeleteModal = (props) => {
                         value="Yes"
                         onClick={(e) => {
                             e.preventDefault();
-                            props.dispatch(deleteAccount(submitData[0].id))
-                            props.setCheckedState(props.checkedState.fill(false))
                             submitData.map((data) => {
-                                logsArray.push(`Admin deleted the user ${data.first_name} ${data.last_name} on ${currentDate}/${currentMonth}/${currentYear}`)
+                                if (data.user_status.toLowerCase() !== 'inactive')
+                                    logsArray.push(`${isAuth?.result?.name} deactivated the user ${data.first_name} ${data.last_name} on ${currentDate}/${currentMonth}/${currentYear}`)
                             })
+                            props.dispatch(changeUserStatus(submitData, props.type))
+                            props.setCheckedState(props.checkedState.fill(false))
+                            props.setAllChecked(false)
                             props.setLogs([...props.logs, logsArray].flat(Infinity))
                             props.setShowModal(false)
                         }}
@@ -47,4 +53,4 @@ const DeleteModal = (props) => {
     )
 }
 
-export default connect()(DeleteModal)
+export default connect()(Activate);

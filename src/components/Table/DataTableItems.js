@@ -1,25 +1,9 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { connect } from 'react-redux';
-import { updatePaymentStatusDynamically } from '../actions/accounts';
-import { DataTableExpandItems } from './DataTableExpandItems';
+import { updatePaymentStatusDynamically } from '../../actions/accounts';
+import { DataTableExpandItems } from './Subtable/DataTableExpandItems';
 import { MoreOptions } from './MoreOptions';
-
-function useOutsideAlerter(ref, setShowOptions) {
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                setShowOptions(false);
-            }
-        }
-
-        // Bind the event listener
-        document.addEventListener("mouseup", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mouseup", handleClickOutside);
-        };
-    }, [ref]);
-}
+import useOutsideAlerter from '../useOutsideAlerter';
 
 const useWindowSize = () => {
     const [size, setSize] = useState([0, 0]);
@@ -68,8 +52,6 @@ const DataTableItems = (
     useOutsideAlerter(wrapperRef, setShowOptions)
     const [width, height] = useWindowSize();
 
-    const label = [id, amount]
-
     useEffect(() => {
         const subHeight = tableRef.current.getBoundingClientRect().height;
         if (showSub) {
@@ -114,7 +96,7 @@ const DataTableItems = (
 
     return (
         <>
-            <tr key={id} className={`primary-records${showSub || showOptions || checkedState[index] ? ' showSub' : ''}`} >
+            <tr key={id} className={`primary-records${showSub || showOptions || checkedState[index + indexOfFirstData] ? ' showSub' : ''}`} >
                 <td>
                     <input
                         type="checkbox"

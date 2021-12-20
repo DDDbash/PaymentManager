@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from 'react-modal';
 import { PayModal } from './PayModal';
 import { ChangeAmountModal } from './ChangeAmountModal';
@@ -6,6 +6,7 @@ import Activate from './Activate';
 import Inactivate from './Inactivate';
 import DeleteModal from './DeleteModal';
 import ProfileModal from './ProfileModal';
+import DeleteAllModal from './DeleteAllModal';
 
 const DataModal = (props) => {
     Modal.setAppElement('#root');
@@ -21,6 +22,8 @@ const DataModal = (props) => {
         return <DeleteModal {...props} />
     } else if (props.type === 'view_profile') {
         return <ProfileModal {...props} />
+    } else if (props.type === 'delete_all') {
+        return <DeleteAllModal {...props} />
     }
 }
 

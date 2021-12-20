@@ -1,5 +1,5 @@
 import React from 'react'
-import closeIcon from '../icons/close.svg'
+import closeIcon from '../../icons/close.svg'
 
 export const MoreOptions = ({ showOptions, userStatus, setShowOptions, wrapperRef, setShowModal, setModalType }) => {
 
@@ -31,19 +31,26 @@ export const MoreOptions = ({ showOptions, userStatus, setShowOptions, wrapperRe
             </div>
             <ul>
                 <li className="option" onClick={() => openModal('change_amount')}>
-                    Change Amount
-                </li>
-                <li className="option" onClick={() => openModal('view_profile')}>
-                    View Profile
+                    Add Amount
                 </li>
                 {
-                    userStatus === 'active' ?
-                        <li className="option inactivate" onClick={() => openModal('inactivate')}>inactivate</li> :
-                        <li className="option activate" onClick={() => openModal('activate')}>activate</li>
+                    !userStatus ?
+                        <li className="option activate" onClick={() => openModal('activate')}>
+                            activate
+                        </li>
+                        :
+                        <li className="option" onClick={() => openModal('view_profile')}>
+                            View Profile
+                        </li>
+                }
+                {
+                    userStatus === 'inactive' ?
+                        <li className="option activate" onClick={() => openModal('activate')}>activate</li> :
+                        <li className="option inactivate" onClick={() => openModal('inactivate')}>inactivate</li>
                 }
                 <li className="option delete"
-                    onClick={() => openModal('delete')}>
-                    Delete
+                    onClick={() => !userStatus ? openModal('delete_all') : openModal('delete')}>
+                    Delete {!userStatus && 'All'}
                 </li>
             </ul>
         </div>

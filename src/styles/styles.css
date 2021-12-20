@@ -5,3 +5,5 @@
 @import "./components/table.css";
 @import "./components//table-attributes.css";
 @import "./components/modal.css";
+@import "./components/auth.css";
+@import "./components/profile.css";

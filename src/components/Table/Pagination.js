@@ -1,6 +1,6 @@
 import React from 'react'
-import left from '../icons/left.svg';
-import right from '../icons/right.svg';
+import left from '../../icons/left.svg';
+import right from '../../icons/right.svg';
 
 export const Pagination = ({
     dataPerPage,

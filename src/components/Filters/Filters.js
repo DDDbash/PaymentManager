@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { setTextFilter, sortUsers, filterUsers } from '../actions/filters';
+import { setTextFilter, sortUsers, filterUsers } from '../../actions/filters';
 
 const Filters = (props) => {
     const [showFilterModal, setShowFilterModal] = useState(false)

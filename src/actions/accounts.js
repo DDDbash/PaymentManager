@@ -1,8 +1,3 @@
-export const removeAccount = ({ id } = {}) => ({
-    type: 'REMOVE_ACCOUNT',
-    id
-});
-
 export const updateAccounts = (accounts) => ({
     type: 'UPDATE_ACCOUNT',
     accounts
@@ -23,6 +18,10 @@ export const changeUserStatus = (submitData, userStatus) => ({
 export const deleteAccount = (id) => ({
     type: 'DELETE_ACCOUNT',
     id
+})
+
+export const deleteAllAccount = () => ({
+    type: 'DELETE_ALL_ACCOUNT',
 })
 
 // export const startUpdateAccounts = (accounts) => {

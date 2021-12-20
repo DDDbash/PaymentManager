@@ -1,0 +1,14 @@
+.profile-table {
+  margin-left: 8vw;
+  margin-right: 8vw;
+  margin-top: 50px;
+}
+
+.profile-table th {
+  padding: 5px;
+}
+
+.profile-table td {
+  padding: 5px;
+  text-transform: none;
+}

@@ -1,17 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { connect } from 'react-redux';
-import selectAccounts from '../selectors/accounts';
-import Pagination from './Pagination';
-import kebabIcon from '../icons/more.svg';
+
+import useOutsideAlerter from '../useOutsideAlerter';
+
+import selectAccounts from '../../selectors/accounts';
+import { updateAccounts } from '../../actions/accounts';
+
+
+import kebabIcon from '../../icons/more.svg';
+import expandIcon from '../../icons/expand.svg';
+
 import DataTableItems from './DataTableItems';
-import expandIcon from '../icons/expand.svg';
-import DataModal from './DataModal';
-import { updateAccounts } from '../actions/accounts';
+import DataModal from '../Modals/DataModal';
+import { MoreOptions } from './MoreOptions';
+import Pagination from './Pagination';
+
+import { AppContext } from '../../ProtectedRoutes';
 
 const DataTable = (props) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [dataPerPage, setDataPerPage] = useState(10);
-    const [modalType, setModalType] = useState('pay');
+    const [currentPage, setCurrentPage] = useState(1)
+    const [dataPerPage, setDataPerPage] = useState(10)
+    const [modalType, setModalType] = useState('pay')
+
+    const [showOptionsAll, setShowOptionsAll] = useState(false)
+    const wrapperRefAll = useRef(null)
+
+    const { isAuth } = useContext(AppContext);
+
+    useOutsideAlerter(wrapperRefAll, setShowOptionsAll)
+
+    const optionsForAll = () => {
+        var updatedCheckedState
+        !showOptionsAll && setShowOptionsAll(true)
+        updatedCheckedState = checkedState.map(() => true)
+        setCheckedState(updatedCheckedState)
+        setAllChecked(true)
+    }
 
     //index of first and last data in the table
     const indexOfLastData = currentPage * dataPerPage;
@@ -49,8 +73,6 @@ const DataTable = (props) => {
     //checkbox on Check and unCheck
     const handleOnChange = (position) => {
         var updatedCheckedState;
-        position = currentPage > 1 ? position + indexOfFirstData : position
-        // console.log(position);
         if (position === 'all') {
             if (!allChecked)
                 updatedCheckedState = checkedState.map(() => true)
@@ -60,8 +82,8 @@ const DataTable = (props) => {
             setAllChecked(!allChecked)
         }
         else {
+            position = currentPage > 1 ? position + indexOfFirstData : position
             updatedCheckedState = checkedState.map((item, index) => {
-                // console.log(index);
                 return index === position ? !item : item
             }
             );
@@ -111,42 +133,33 @@ const DataTable = (props) => {
                         data.payment_status = "paid";
                         data.paid_date = new Date();
                     }
-                    logsArray.push(`Admin paid the dues of ${data.first_name} by $${amount.amount} on ${currentDate}/${currentMonth}/${currentYear}`)
+                    logsArray.push(`${isAuth?.result?.name} paid the dues of ${data.first_name} by $${amount.amount} on ${currentDate}/${currentMonth}/${currentYear}`)
                 }
                 props.setLogs([...props.logs, logsArray].flat(Infinity))
             })
-            // console.log(modalData);
-            // let newReducerData = reducerData.map(data => { return { ...data } })
-            // newReducerData.map(data => {
-            //     modalData.forEach(mData => {
-            //         if (data.id === mData.id) {
-            //             data.amount = mData.amount;
-            //         }
-            //     });
-            // })
         }
 
-        //amount change is dont without directly connecting to the user so that the total amount re render happens
+        //amount change is done without directly connecting to the user so that the total amount re render happens
         else if (modalType === 'change_amount') {
             modalData.map((data) => {
-                if (Number(parseFloat(amount.amount)) <= data.amount && data.payment_status.toLowerCase() !== 'paid') {
-                    alert("Please reduce the dues by Paying the dues instead of Changing the amount")
-                } else {
-                    if (data.payment_status.toLowerCase() === 'paid') {
-                        data.payment_status = 'unpaid'
-                        data.paid_date = new Date().setDate(new Date().getDate() + 7)
-                    }
+                if (data.payment_status.toLowerCase() === 'paid') {
+                    data.payment_status = 'unpaid'
+                    data.paid_date = new Date().setDate(new Date().getDate() + 7)
                     data.amount = Number(parseFloat(amount.amount))
-                    logsArray.push(`Admin changed the amount of ${data.first_name} to $${amount.amount} on ${currentDate}/${currentMonth}/${currentYear}`)
+                } else {
+                    data.amount = data.amount + Number(parseFloat(amount.amount))
                 }
+                logsArray.push(`${isAuth?.result?.name} added the amount $${amount.amount} to ${data.first_name} on ${currentDate}/${currentMonth}/${currentYear}`)
             })
             props.setLogs([...props.logs, logsArray].flat(Infinity))
         }
 
         props.setRefresh(!props.refresh)
         setCheckedState(checkedState.fill(false))
+        setAllChecked(false)
         props.dispatch(updateAccounts(modalData))
         setShowModal(false)
+        alert("Changes were made")
     }
 
     return (
@@ -196,7 +209,20 @@ const DataTable = (props) => {
                                     </div>
                                 </label>
                             </th>
-                            <th className="align-right" style={{ width: '125px' }}><img src={kebabIcon} alt="options" /></th>
+                            <th className="align-right" style={{ width: '125px' }}>
+                                <img src={kebabIcon}
+                                    alt="options"
+                                    className="show-more"
+                                    onClick={optionsForAll}
+                                />
+                                <MoreOptions
+                                    setShowModal={setShowModal}
+                                    setModalType={setModalType}
+                                    setShowOptions={setShowOptionsAll}
+                                    wrapperRef={wrapperRefAll}
+                                    showOptions={showOptionsAll}
+                                />
+                            </th>
                         </tr>
 
                     </thead>
@@ -235,6 +261,7 @@ const DataTable = (props) => {
                 currentDataSetLength={currentDataSet.length}
             />
             <DataModal
+                setAllChecked={setAllChecked}
                 setModalData={setModalData}
                 type={modalType}
                 showModal={showModal}

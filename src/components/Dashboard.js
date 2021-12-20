@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import SubNav from './SubNav';
-import Filters from './Filters';
-import DataTable from './DataTable';
+import SubNav from './Navbar/SubNav';
+import Filters from './Filters/Filters';
+import DataTable from './Table/DataTable';
 
 const Dashboard = ({ logs, setLogs }) => {
     const [refresh, setRefresh] = useState(false)
