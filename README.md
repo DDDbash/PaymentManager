@@ -1,2 +1,7 @@
 Create an account and then you will be able to access the main application.
 The function of the main application is to manage payments of multiple accounts along with their payment status, view activities and many more.
+
+open 2 terminals
+one for client in the root folder: npm start
+
+another for the server in the server sub folder" npm start
